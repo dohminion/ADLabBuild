@@ -57,8 +57,16 @@ TODO:
 - Stale computer cleanup
 - Parallel patch checking
 - VS Code config
-
+- Enable Central Store
+- Fine Grain Password Policies
+- Convert to DSC
+- Build ATA server
+- Build Netwrix Freeware Server
+- Links to other great articles to expand on this
 
 - CA Config?
 
+Notes:
+Win10 GPO Baseline from:
+https://blogs.technet.microsoft.com/secguide/2017/08/30/security-baseline-for-windows-10-creators-update-v1703-final/
 
