@@ -32,19 +32,16 @@ Here is the rough draft version I have for now.
 6.  Run ADGroupBuilds.ps1 to create the needed security groups
 7.  Optionally Run ADSitesBuild.ps1 - not required, but describes a Cloud Hybrid design for SMBs
 8.  Run ADEnableFeatures.ps1
-
+9.  Run GPOBuilds - Make sure the MyLabGPOBaseBuilds GPO exports have been copied to C:\Scripts\MyLabGPOBaseBuilds
 
 
 TODO:
 - Create automated Azure VM build doc
 - Include reset of default Users and Computer creation locations
 - Security delegation rights to the groups created above
-- GPO build scripts - Import from baseline templates
 - Team OU structure builds including delegated access, and GPOs
 - Team OU structure access nesting between Forests - Will need a second VM and forest configured with working DNS.
 - Support/Shared Team Access delegation
-- Links for LAPS download
-- Links for baseline GPO Downloads
 - Monitoring scripts
 -- Group Memberships
 -- Services
@@ -70,6 +67,6 @@ TODO:
 - CA Config?
 
 Notes:
-Win10 GPO Baseline from:
+GPO Baselines were modified from the GPOs you can download from here:
 https://blogs.technet.microsoft.com/secguide/2017/08/30/security-baseline-for-windows-10-creators-update-v1703-final/
 
