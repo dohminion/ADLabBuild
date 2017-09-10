@@ -45,7 +45,7 @@ New-ADOU 'AccessGroups'
 New-ADOU 'DistributionLists'
 
 $RootOU = "OU=PreProduction,$DomainDN"
-New-ADOU 'Policy Test'
+New-ADOU 'PolicyTest'
 
 $RootOU = "OU=MemberServers,$DomainDN"
 New-ADOU "Teams"

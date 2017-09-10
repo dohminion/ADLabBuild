@@ -1,11 +1,14 @@
 # ADLabBuild
 
-The scripts located below are to be used to deploy an lab with a number of AD Security best practices enabled.
+The scripts located below are to be used to deploy an lab with a number of AD Security best practices enabled. 
+
+The purpose of doing this would be to learn how to use PowerShell to automate all of these tasks, and take that knowledge and use it within your environments.  This also creates a more secure AD build that can be used for more challening pen testing.
+
 
 I hope to be adding more options, and details over time.  
 
 Note - the early scripts are just basic items that won't be run multiple times, and have minimal comments.  More complex scripts have more detailed information.
-I will be building out additional error catching and Pester tests for all if time allows.
+I will be building out additional error handling and Pester tests for all if time allows.
 
 
 Prerequisites to enable all functions:
@@ -15,7 +18,7 @@ You need the LAPS MSI installed on the system from which you run the ADEnableFea
 Get it from: https://www.microsoft.com/en-us/download/details.aspx?id=46899
 
 For automated GPO editing, get GPAE from SDM Software.  It is well worth the modest cost compared to time saved. 
-It must be installed before you run the  
+It must be installed before you run the Team Structure creation scripts. 
 Trial available here:  https://sdmsoftware.com/group-policy-management-products/group-policy-automation-engine/
 
 
