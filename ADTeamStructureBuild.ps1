@@ -106,9 +106,26 @@ Start-Sleep 5
 #Add the ADMIN Group to the GPO
 import-module SDM-GroupPolicy
 #import-module SDM-GPAEScript
+Start-Sleep 10
 
 $gpo = get-sdmgpobject -gpoName "gpo://$DomainDNSName/$GPOName" -openbyName
-$container = $gpo.GetObject("Computer Configuration/Windows Settings/Security Settings/Restricted Groups");
+$container = $gpo.GetObject("Computer Configuration/Windows Settings/Security Settings/Restricted Groups")
+$container
+$containerReady = $false
+do
+    {
+       if ($container){
+        $containerReady =$true
+        }
+    else
+        {
+    Write-output "container not ready, sleeping..."
+    Start-Sleep 5
+    }
+}
+until ($containerReady)
+
+pause
 $setting = $container.Settings.AddNew("Administrators") #This will wipe existing members, or add the group if it doesn't exist in the policy
 $setting = $container.Settings.ItemByName(“Administrators”)
 $members = [System.Collections.ArrayList]$setting.GetEx("Members")
