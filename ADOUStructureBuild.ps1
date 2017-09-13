@@ -36,7 +36,7 @@ New-ADOU 'DefaultComputers'
 New-ADOU 'DefaultUsers'
 
 $RootOU = "OU=SecurityGroups,$DomainDN"
-New-ADOU 'SecurityRoles'
+New-ADOU 'SecurityTeams'
 New-ADOU 'PAMRoles'
 New-ADOU 'PAMAccounts'
 

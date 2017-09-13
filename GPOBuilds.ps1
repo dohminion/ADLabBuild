@@ -21,9 +21,53 @@ foreach ($GPOName in $GPONames){
     New-GPOBuilds
 }
 
-#NOTE - You may/will need to review the Domain Membership in the DC and Server Baselines to replace the SID with the group info from your lab
+#NOTE - You will need to review the Domain Membership in the DC and Server Baselines to replace the SID with the group info from your lab
+
+
+Write-Output "You will need to modify the imported policies to remove (just!) the SIDs and replace them with the following:"
+Write-Output ""
+Write-Output "---GPO-WS2016DCBaseline:---"
+Write-Output "Add workstations to domain" 
+Write-Output "SEC-JoinComputers"
+Write-Output ""
+Write-Output ""
+Write-Output "---WinServerBaseline:---"
+Write-Output "Deny access to this computer from the network"
+Write-Output "Domain Admins;Enterprise Admins;SEC-BlockNetworkLogon"
+Write-Output ""
+Write-Output "Deny log on as a batch job"
+Write-Output "Domain Admins;Enterprise Admins"
+Write-Output ""
+Write-Output "Deny log on as a service"
+Write-Output "Domain Admins;Enterprise Admins"
+Write-Output ""
+Write-Output "Deny log on locally "
+Write-Output "Domain Admins;Enterprise Admins;SEC-BlockInteractiveLogon"
+Write-Output ""
+Write-Output "Deny log on through Terminal Services"
+Write-Output "Domain Admins;Enterprise Admins;SEC-BlockRDPLogon"
+Write-Output ""
+Write-Output ""
+Write-Output "---ClientBaseline:---"
+Write-Output "Deny access to this computer from the network "
+Write-Output "SEC-BlockNetworkLogon"
+Write-Output ""
+Write-Output "Deny log on as a batch job "
+Write-Output "Domain Admins;Enterprise Admins"
+Write-Output ""
+Write-Output "Deny log on as a service "
+Write-Output "Domain Admins;Enterprise Admins"
+Write-Output ""
+Write-Output "Deny log on locally "
+Write-Output "Domain Admins;Enterprise Admins;SEC-BlockInteractiveLogon"
+Write-Output ""
+Write-Output "Deny log on through Terminal Services "
+Write-Output "Domain Admins;Enterprise Admins;SEC-BlockRDPLogon"
+Write-Output ""
+ 
 
 Write-Output 'Review the GPOs and edit appropriately before continuing to link GPOs to the MemberServers OU.'
+
 pause
 
 
