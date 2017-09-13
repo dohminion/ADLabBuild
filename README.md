@@ -35,7 +35,7 @@ Here is the rough draft version I have for now.
 9.  Run GPOBuilds - Make sure the MyLabGPOBaseBuilds GPO exports have been copied to C:\Scripts\MyLabGPOBaseBuilds
 10.  Install .net 3.5 (prereq for GPAE)
 11.  Install GPAE from above
-12.  Run ADTeamStructureBuild - Creates a segmented OU, GPO, Groups, Admin Accounts.  GPO enforces local admins, delegation lets teams add Servers to only this OU (great for DevOps/CICD processes) without granting more permissions that absolutely required.
+12.  Run ADTeamStructureBuild - Creates a segmented OU, GPO, Groups, Admin Accounts.  GPO enforces local admins, delegation lets teams add Servers to only this OU (great for DevOps/CICD processes) without granting more permissions that absolutely required.  Each of the Admin accounts are designed to be managed by a PAM systems with single use passwords.
 
 TODO:
 - Create automated AWS or Azure VM build doc
