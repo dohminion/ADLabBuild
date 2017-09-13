@@ -2,7 +2,7 @@
 
 The scripts located below are to be used to deploy an lab with a number of AD Security best practices enabled. 
 
-The purpose of doing this would be to learn how to use PowerShell to automate all of these tasks, and take that knowledge and use it within your environments.  This also creates a more secure AD build that can be used for more challening pen testing.
+The purpose of doing this would be to learn how to use PowerShell to automate all of these tasks, and take that knowledge and use it within your environments.  
 
 
 I hope to be adding more options, and details over time.  
@@ -33,15 +33,16 @@ Here is the rough draft version I have for now.
 7.  Optionally Run ADSitesBuild.ps1 - not required, but describes a Cloud Hybrid design for SMBs
 8.  Run ADEnableFeatures.ps1
 9.  Run GPOBuilds - Make sure the MyLabGPOBaseBuilds GPO exports have been copied to C:\Scripts\MyLabGPOBaseBuilds
-
+10.  Install .net 3.5 (prereq for GPAE)
+11.  Install GPAE from above
+12.  Run ADTeamStructureBuild - Creates a segmented OU, GPO, Groups, Admin Accounts.  GPO enforces local admins, delegation lets teams add Servers to only this OU (great for DevOps/CICD processes) without granting more permissions that absolutely required.
 
 TODO:
-- Create automated Azure VM build doc
+- Create automated AWS or Azure VM build doc
 - Include reset of default Users and Computer creation locations
 - Security delegation rights to the groups created above
-- Team OU structure builds including delegated access, and GPOs
 - Team OU structure access nesting between Forests - Will need a second VM and forest configured with working DNS.
-- Support/Shared Team Access delegation
+- Support team or Shared Team Access delegation to specific OUs/servers
 - Monitoring scripts
 -- Group Memberships
 -- Services
@@ -64,7 +65,6 @@ TODO:
 - Build Netwrix Freeware Server
 - Links to other great articles to expand on this
 
-- CA Config?
 
 Notes:
 GPO Baselines were modified from the GPOs you can download from here:
