@@ -144,6 +144,7 @@ TODO:
 - Build ATA server
 - Build Netwrix Freeware Server
 - Links to other great articles to expand on this
+- Remove adminstrator from Schema Admins
 
 
 Notes:
