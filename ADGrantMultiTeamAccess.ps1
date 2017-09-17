@@ -34,24 +34,25 @@ Function Get-TEAMInfo{
         [Validatepattern('^\d{5}$')]
         [string]$delegateTeam
         )
-    Write-Output "The target TEAM is $teamNumber, creating structure for $delegateTeam"
+    Write-Output "The target TEAM is $teamNumber, creating shared structure for access for Team $delegateTeam"
     New-OUBuilds
 }
+
 
 Function New-OUBuilds{
     #______________________________________________
     #Create the OU (The target team must already exist)
     #Example of using different OU structures for different domains
     Write-Output "Creating OUs"
-    if ($nbn -eq "SpecialDEV")
-    {
-        $RootOU = "OU=$teamNumber,OU=SpecialTeams,OU=MemberServers,$DomainDN"
-    }
-    else
-    {
-        $RootOU = "OU=$teamNumber,OU=Teams,OU=MemberServers,$DomainDN" 
-    }
-    New-ADOrganizationalUnit -Path $RootOU -Name "$teamNumber-$delegateTeam" -Description "TEAM $delegateTeam sub-OU access in TEAM $teamNumber"
+    #if ($nbn -eq "SpecialDEV")
+    #{
+    #    $RootOU = "OU=$teamNumber,OU=SpecialTeams,OU=MemberServers,$DomainDN"
+    #}
+    #else
+    #{
+        $RootOU = "OU=T$teamNumber,OU=Teams,OU=MemberServers,$DomainDN"
+    #}
+    New-ADOrganizationalUnit -Path $RootOU -Name "T$teamNumber-T$delegateTeam" -Description "TEAM T$delegateTeam sub-OU access in TEAM T$teamNumber"
     #______________________________________________
     #Need to pause here to prevent errors
     Start-Sleep 5
@@ -65,7 +66,7 @@ Function New-OUBuilds{
 Function New-GroupBuilds{
     #______________________________________________
     # Group names DEV,Cert,Prod
-    $ComboAdminName = "SEC-$delegateTeam-$teamNumber Admins"
+    $ComboAdminName = "SEC-T$delegateTeam-T$teamNumber Admins"
     #______________________________________________
     #Create group.
     #Example of using different group types to allow for nesting across forests
@@ -95,13 +96,13 @@ Function New-AccountBuilds{
     Write-Output "Creating ADMIN accounts"
     For ($i=1; $i -lt $UserCount; $i++)  {
         #Info to Create the ADMIN accounts
-        $Acct1 = "ADMIN-T$teamNumber-$i"
+        $Acct1 = "ADMIN-T$delegateTeam-$teamNumber-$i"
         $UPN1 =$Acct1+$UPNSuffix
         $EmployeeType="ADMIN"
         #Gen the password
         $PW=[System.Web.Security.Membership]::GeneratePassword(15,3)
         #$PW | Get-Phonetic >"c:\scripts\$acct1.txt"
-        $SecPassword =(ConvertTo-SecureString –AsPlaintext $PW –Force)
+        $SecPassword =(ConvertTo-SecureString -AsPlainText $PW -Force)
         #Create the ADMIN accounts
         New-ADUser -Name $Acct1 -Path $UserOU -samAccountName $Acct1 -DisplayName $Acct1 -userPrincipalName $UPN1 -Description "PAM Managed account for TEAM $teamNumber" -AccountPassword $SecPassword -Enabled $true
         #Need to pause here to prevent errors
@@ -117,9 +118,9 @@ Function New-GPOBuilds{
     #______________________________________________
     Write-Output "Creating GPOs"
     #Create new GPO, and link it to the team OU
-    $GPOName = "GPO-TEAM $teamNumber-$delegateTeam"
-    $TargetOU = "OU=$teamNumber-$delegateTeam,"+$RootOU
-    New-GPO  -Name $GPOName
+    $GPOName = "GPO-TEAM-$teamNumber-$delegateTeam"
+    $TargetOU = "OU=T$teamNumber-T$delegateTeam,"+$RootOU
+    New-GPO -Name $GPOName
     #Need to pause here to prevent errors
     Start-Sleep 8
     New-GPLink -Name $GPOName -Target $TargetOU | out-null
@@ -155,12 +156,12 @@ Function New-GPOSettings{
     $setting.PutEx([GPOSDK.PropOp]"PROPERTY_UPDATE", "Members", $members)
     $setting.Save()
 
-    New-AccessDelegation-
+    New-AccessDelegation
 }
 
 function New-AccessDelegation
 {
-        $Delegationbase = "OU=$teamNumber-$delegateTeam,OU=$teamNumber,OU=Teams,OU=MemberServers,$DomainDN"
+        $Delegationbase = "OU=T$teamNumber-T$delegateTeam,OU=T$teamNumber,OU=Teams,OU=MemberServers,$DomainDN"
         Write-Output "Delegating Computer Management to $Delegationbase"
         #delegate access
         $GrantCMD = "dsacls $Delegationbase /I:T /G ""$nbn\$ComboAdminName"":CCDC;computer"
@@ -172,5 +173,4 @@ function New-AccessDelegation
 }
 
 Write-Output "Enter the target TEAM for teamNumber, and enter the second TEAM to share access to some systems for the EelegateTeam"
-
 Get-TEAMInfo
