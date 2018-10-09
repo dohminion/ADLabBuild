@@ -6,7 +6,7 @@ New-ADGroup -name $SecGroupName -GroupCategory 'Security' -GroupScope 'DomainLoc
 
 #Determine Domain info
 $DomainDN = (([ADSI]"").distinguishedName[0])
-$SecOU = "OU=SecurityGroups,$DomainDN"
+$SecOU = "OU=SecurityGroups,OU=Tier0,$DomainDN"
 
 $SecGroupNames= @("SEC-BlockInteractiveLogon","SEC-BLockNetworkLogon","SEC-BlockRDPLogon","SEC-ServiceAccounts","SEC-JEADCOps","SEC-ComputerAccountAdmins","SEC-UserAdmins","SEC-UserModify","SEC-GroupAdmins","SEC-GroupModify","SEC-PWResetClearLockouts","SEC-ServerAdmins","SEC-ClientComputerAdmin","SEC-IAMAdmins","SEC-IAMLogon","SEC-JoinComputers","SEC-SQLServerAdmins","SEC-PAM-SDHolder")
 foreach ($SecGroupName in $SecGroupNames){
