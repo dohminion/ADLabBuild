@@ -1,5 +1,4 @@
-﻿function New-GPOBuilds
-{
+﻿function New-GPOBuilds {
     #create the GPO
     new-gpo -Name $GPOName
     Start-Sleep 8
@@ -15,8 +14,8 @@ $DomainDN = (([ADSI]"").distinguishedName[0])
 $TargetOU = "OU=PolicyTest,OU=PreProduction,$DomainDN"
 
 #Build empty GPOs
-$GPONames= @("GPO-DomainPasswordPolicy","GPO-LAPS","GPO-PowerShellConfig","GPO-WinServerBaseline","GPO-WS2016DCBaseline","GPO-ClientBaseline","GPO-CredGuard","GPO-Defender","GPO-Bitlocker")
-foreach ($GPOName in $GPONames){
+$GPONames = @("GPO-DomainPasswordPolicy", "GPO-LAPS", "GPO-PowerShellConfig", "GPO-WinServerBaseline", "GPO-WS2016DCBaseline", "GPO-ClientBaseline", "GPO-CredGuard", "GPO-Defender", "GPO-Bitlocker")
+foreach ($GPOName in $GPONames) {
     Write-Output $GPOName
     New-GPOBuilds
 }
@@ -73,8 +72,8 @@ pause
 
 #Link to Servers
 $TargetOU = "OU=MemberServers,$DomainDN"
-$GPONames= @("GPO-LAPS","GPO-PowerShellConfig","GPO-WinServerBaseline","GPO-CredGuard","GPO-Defender","GPO-Bitlocker")
-foreach ($GPOName in $GPONames){
+$GPONames = @("GPO-LAPS", "GPO-PowerShellConfig", "GPO-WinServerBaseline", "GPO-CredGuard", "GPO-Defender", "GPO-Bitlocker")
+foreach ($GPOName in $GPONames) {
     Write-Output $GPOName
     New-GPLink -Name $GPOName -Target $TargetOU | out-null
 }
@@ -85,8 +84,8 @@ pause
 
 #Link to Clients
 $TargetOU = "OU=ClientComputers,$DomainDN"
-$GPONames= @("GPO-LAPS","GPO-PowerShellConfig","GPO-ClientBaseline","GPO-CredGuard","GPO-Defender","GPO-Bitlocker")
-foreach ($GPOName in $GPONames){
+$GPONames = @("GPO-LAPS", "GPO-PowerShellConfig", "GPO-ClientBaseline", "GPO-CredGuard", "GPO-Defender", "GPO-Bitlocker")
+foreach ($GPOName in $GPONames) {
     Write-Output $GPOName
     New-GPLink -Name $GPOName -Target $TargetOU | out-null
 }
@@ -97,8 +96,8 @@ pause
 
 #Link to DCs
 $TargetOU = "OU=Domain Controllers,$DomainDN"
-$GPONames= @("GPO-DomainPasswordPolicy","GPO-PowerShellConfig","GPO-WS2016DCBaseline","GPO-Defender")
-foreach ($GPOName in $GPONames){
+$GPONames = @("GPO-DomainPasswordPolicy", "GPO-PowerShellConfig", "GPO-WS2016DCBaseline", "GPO-Defender")
+foreach ($GPOName in $GPONames) {
     Write-Output $GPOName
     New-GPLink -Name $GPOName -Target $TargetOU | out-null
 }

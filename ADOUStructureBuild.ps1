@@ -27,18 +27,40 @@ Function New-ADOU{
 }
 
 $RootOU =$DomainDN
-New-ADOU 'ClientComputers'
-New-ADOU 'MemberServers'
-New-ADOU 'SecurityGroups'
-New-ADOU "Groups"
+New-ADOU 'Tier0'
+New-ADOU 'Tier1'
+New-ADOU 'Tier2'
+New-ADOU 'Groups'
 New-ADOU 'PreProduction'
 New-ADOU 'DefaultComputers'
 New-ADOU 'DefaultUsers'
+New-ADOU 'Accounts'
 
-$RootOU = "OU=SecurityGroups,$DomainDN"
+$RootOU = "OU=Tier0,$DomainDN"
+New-ADOU 'SecurityGroups'
+New-ADOU 'Tool Servers'
+New-ADOU 'Admin Accounts'
+New-ADOU 'Admin Workstations'
+New-ADOU 'Standard Accounts'
+New-ADOU 'Standard Workstations'
+
+$RootOU = "OU=SecurityGroups,OU=Tier0,$DomainDN"
 New-ADOU 'SecurityTeams'
 New-ADOU 'PAMRoles'
 New-ADOU 'PAMAccounts'
+
+$RootOU = "OU=Tier1,$DomainDN"
+New-ADOU 'MemberServers'
+New-ADOU 'Admin Accounts'
+New-ADOU 'Admin Workstations'
+
+$RootOU = "OU=MemberServers,OU=Tier1,$DomainDN "
+New-ADOU 'Teams'
+
+$RootOU = "OU=Tier2,$DomainDN"
+New-ADOU 'ClientComputers'
+New-ADOU 'Admin Accounts'
+New-ADOU 'Admin Workstations'
 
 $RootOU = "OU=Groups,$DomainDN"
 New-ADOU 'AccessGroups'
@@ -47,5 +69,8 @@ New-ADOU 'DistributionLists'
 $RootOU = "OU=PreProduction,$DomainDN"
 New-ADOU 'PolicyTest'
 
-$RootOU = "OU=MemberServers,$DomainDN"
-New-ADOU "Teams"
+
+$RootOU = "OU=Accounts,$DomainDN"
+New-ADOU 'Standard Users'
+New-ADOU 'Service Accounts'
+
