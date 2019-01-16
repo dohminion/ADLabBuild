@@ -1,11 +1,12 @@
 ﻿function New-GPOBuilds {
     #create the GPO
     new-gpo -Name $GPOName
-    Start-Sleep 8
+    #Start-Sleep 8
     #link GPO to policy test for review
     New-GPLink -Name $GPOName -Target $TargetOU | out-null
     #Import the GPO settings
-    import-gpo -BackupGpoName $GPOName -TargetName $GPOName -path c:\Scripts\MyLabGPOBaseBuilds
+    #
+    #import-gpo -BackupGpoName $GPOName -TargetName $GPOName -path c:\Scripts\MyLabGPOBaseBuilds
 }
 
 Import-Module ActiveDirectory
@@ -21,8 +22,20 @@ foreach ($GPOName in $GPONames) {
 }
 
 #NOTE - You will need to review the Domain Membership in the DC and Server Baselines to replace the SID with the group info from your lab
+.\New-GPOMigraion.ps1
 
+Start-Sleep 8
+import-gpo -BackupGpoName GPO-WS2016DCBaseline -TargetName GPO-WS2016DCBaseline -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
+import-gpo -BackupGpoName GPO-WinServerBaseline -TargetName GPO-WinServerBaseline -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
+import-gpo -BackupGpoName GPO-PowerShellConfig -TargetName GPO-PowerShellConfig -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
+import-gpo -BackupGpoName GPO-LAPS -TargetName GPO-LAPS -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
+import-gpo -BackupGpoName GPO-DomainPasswordPolicy -TargetName GPO-DomainPasswordPolicy -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
+import-gpo -BackupGpoName GPO-Defender -TargetName GPO-Defender -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
+import-gpo -BackupGpoName GPO-CredGuard -TargetName GPO-CredGuard -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
+import-gpo -BackupGpoName GPO-ClientBaseline -TargetName GPO-ClientBaseline -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
+import-gpo -BackupGpoName GPO-Bitlocker -TargetName GPO-Bitlocker -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
 
+<#
 Write-Output "You will need to modify the imported policies to remove (just!) the SIDs and replace them with the following:"
 Write-Output ""
 Write-Output "---GPO-WS2016DCBaseline:---"
@@ -66,9 +79,8 @@ Write-Output ""
  
 
 Write-Output 'Review the GPOs and edit appropriately before continuing to link GPOs to the MemberServers OU.'
-
+#>
 pause
-
 
 #Link to Servers
 $TargetOU = "OU=MemberServers,$DomainDN"
