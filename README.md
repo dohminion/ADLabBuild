@@ -25,13 +25,15 @@ Trial available here:  https://sdmsoftware.com/group-policy-management-products/
 Here is the rough draft version I have for now.  
 
 1.  Create a Windows Server 2016 VM (Preferably using your favorite automation solution).  
-2.  Rename your VM to the Domain Controller name you would like, and patch it fully.
+2.  Install all available Patches!
 3.  Copy all files to the server.  I created and used the folder c:\Scripts.  Please us this if you don't want to modify the files.
 
 
-4.  Run 1-DCBuild.ps1, enter the DSRM Password you desire to be set. The server will reboot.  (Note - You will get warnings if using DHCP, and about DNS resolution.  This is normal.  You will also need to change the admin password after first logon to the domain.)  
+4.  CD to c:\Scripts and 1un 1-DCBuild.ps1, enter the DSRM Password you desire to be set. The server will reboot.  
+Note - You will get warnings if using DHCP, and about DNS resolution.  This is normal.  You will also need to change the admin password after first logon to the domain.
+
 5.  Run 2-RunStructureBuild.ps1
-NOTE - You may need to link the new GPOs higher than Default domain policy.
+NOTE - You will need to change the link order of the new GPOs higher than Default domain policy.
 
 
 You will now have an AD structure with Groups, OUs, and GPOs, designed to match MS Best practices, and Tier Design to help prevent PTH.
@@ -39,7 +41,7 @@ You will now have an AD structure with Groups, OUs, and GPOs, designed to match 
 
 
 
-To see a design that adds additional lateral movement segmentation, continue with the following
+To see a design that adds additional lateral movement segmentation, continue with the following:
 
 6.  Install .net 3.5 (prereq for GPAE)  
 Install-WindowsFeature Net-Framework-Core
@@ -51,31 +53,20 @@ Install-WindowsFeature Net-Framework-Core
 
 
 TODO:
-- Create automated AWS or Azure VM build doc
+
 - Include reset of default Users and Computer creation locations
 - Security delegation rights to the groups created above
-- Team OU structure access nesting between Forests - Will need a second VM and forest configured with working DNS.
-- Support team or Shared Team Access delegation to specific OUs/servers
 - Monitoring scripts
--- Group Memberships
--- Services
---- Status - Restart Failed and notify
---- Installs - Alert on new service installs
---Scheduled Tasks - Alert on Scheduled Task changes (new, modify, delete)
+- Group Memberships
+- Installs - Alert on new service installs
+- Scheduled Tasks - Alert on Scheduled Task changes (new, modify, delete)
 - Tool server build
 - JEA config push
-- Sysmon, and Splunk Install
-- WEF config and server
-- Splunk Server install
-- Custom Account creation functions
 - Stale computer cleanup
-- Parallel patch checking
-- VS Code config
+- 
 - Enable Central Store
 - Fine Grain Password Policies
 - Convert to DSC
-- Build ATA server
-- Build Netwrix Freeware Server
 - Links to other great articles to expand on this
 - Remove adminstrator from Schema Admins
 
