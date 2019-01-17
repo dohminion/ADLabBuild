@@ -24,9 +24,10 @@ Trial available here:  https://sdmsoftware.com/group-policy-management-products/
 
 Here is the rough draft version I have for now.  
 
-1.  Create a Windows Server 2016 VM.  
+1.  Create a Windows Server 2016 VM (Preferably using your favorite automation solution).  
 2.  Rename your VM to the Domain Controller name you would like, and patch it fully.
 3.  Copy all files to the server.  I created and used the folder c:\Scripts.  Please us this if you don't want to modify the files.
+
 4.  Run 1-DCBuild.ps1, enter the DSRM Password you desire to be set. The server will reboot.  (Note - You will get warnings if using DHCP, and about DNS resolution.  This is normal.  You will also need to change the admin password after first logon to the domain.)  
 5.  Run 2-RunStructureBuild.ps1
 
