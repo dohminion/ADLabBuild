@@ -36,6 +36,7 @@ You will now have an AD structure with Groups, OUs, and GPOs, designed to match 
 NOTE - link higher than Default domain policy
 
 To see a design that adds additional lateral movement segmentation, continue with the following
+
 7.  Install .net 3.5 (prereq for GPAE)  
 Install-WindowsFeature Net-Framework-Core
 
