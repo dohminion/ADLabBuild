@@ -29,7 +29,7 @@ Here is the rough draft version I have for now.
 3.  Copy all files to the server.  I created and used the folder c:\Scripts.  Please us this if you don't want to modify the files.
 
 
-4.  CD to c:\Scripts and 1un 1-DCBuild.ps1, enter the DSRM Password you desire to be set. The server will reboot.  
+4.  CD to c:\Scripts and Run 1-DCBuild.ps1, enter the DSRM Password you desire to be set. The server will reboot.  
 Note - You will get warnings if using DHCP, and about DNS resolution.  This is normal.  You will also need to change the admin password after first logon to the domain.
 
 5.  Run 2-RunStructureBuild.ps1
