@@ -1,9 +1,0 @@
-import-gpo -BackupGpoName GPO-WS2016DCBaseline -TargetName GPO-WS2016DCBaseline -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
-import-gpo -BackupGpoName GPO-WinServerBaseline -TargetName GPO-WinServerBaseline -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
-import-gpo -BackupGpoName GPO-PowerShellConfig -TargetName GPO-PowerShellConfig -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
-import-gpo -BackupGpoName GPO-LAPS -TargetName GPO-LAPS -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
-import-gpo -BackupGpoName GPO-DomainPasswordPolicy -TargetName GPO-DomainPasswordPolicy -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
-import-gpo -BackupGpoName GPO-Defender -TargetName GPO-Defender -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
-import-gpo -BackupGpoName GPO-CredGuard -TargetName GPO-CredGuard -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
-import-gpo -BackupGpoName GPO-ClientBaseline -TargetName GPO-ClientBaseline -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
-import-gpo -BackupGpoName GPO-Bitlocker -TargetName GPO-Bitlocker -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
