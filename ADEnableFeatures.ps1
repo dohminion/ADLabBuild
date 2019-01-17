@@ -13,9 +13,14 @@ Write-Output "Enabling PAM"
 Enable-ADOptionalFeature "Privileged Access Management Feature" -Scope ForestOrConfigurationSet -Target $DomainDNSName
 
 #LAPS
-#installation of the LAPS MSI on the system from which you run this script, is required before running this section
-# Get it from: https://www.microsoft.com/en-us/download/details.aspx?id=46899
+#
+Write-Output "Installation of the LAPS MSI on the system from which you run this script is required before running this section.  Go install it now, and come back to this window."
+Write-Output "Downlaod LAPS from here:"
+write-output "https://www.microsoft.com/en-us/download/details.aspx?id=46899"
+Write-Output "Press CTRL-C if you don't want to install LAPS and cancel this section of the script."
 
+
+Pause
 Write-Output "Enabling LAPS"
 Import-Module AdmPwd.PS
 Update-AdmPwdADSchema

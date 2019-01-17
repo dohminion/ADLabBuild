@@ -35,55 +35,8 @@ import-gpo -BackupGpoName GPO-CredGuard -TargetName GPO-CredGuard -path C:\Scrip
 import-gpo -BackupGpoName GPO-ClientBaseline -TargetName GPO-ClientBaseline -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
 import-gpo -BackupGpoName GPO-Bitlocker -TargetName GPO-Bitlocker -path C:\Scripts\MyLabGPOBaseBuilds\ -MigrationTable C:\Scripts\MyLabGPOBaseBuilds\MyLab.local-to-MyLab.local.migtable -ErrorAction Stop
 
-<#
-Write-Output "You will need to modify the imported policies to remove (just!) the SIDs and replace them with the following:"
-Write-Output ""
-Write-Output "---GPO-WS2016DCBaseline:---"
-Write-Output "Add workstations to domain" 
-Write-Output "SEC-JoinComputers"
-Write-Output ""
-Write-Output ""
-Write-Output "---WinServerBaseline:---"
-Write-Output "Deny access to this computer from the network"
-Write-Output "Domain Admins;Enterprise Admins;SEC-BlockNetworkLogon"
-Write-Output ""
-Write-Output "Deny log on as a batch job"
-Write-Output "Domain Admins;Enterprise Admins"
-Write-Output ""
-Write-Output "Deny log on as a service"
-Write-Output "Domain Admins;Enterprise Admins"
-Write-Output ""
-Write-Output "Deny log on locally "
-Write-Output "Domain Admins;Enterprise Admins;SEC-BlockInteractiveLogon"
-Write-Output ""
-Write-Output "Deny log on through Terminal Services"
-Write-Output "Domain Admins;Enterprise Admins;SEC-BlockRDPLogon"
-Write-Output ""
-Write-Output ""
-Write-Output "---ClientBaseline:---"
-Write-Output "Deny access to this computer from the network "
-Write-Output "SEC-BlockNetworkLogon"
-Write-Output ""
-Write-Output "Deny log on as a batch job "
-Write-Output "Domain Admins;Enterprise Admins"
-Write-Output ""
-Write-Output "Deny log on as a service "
-Write-Output "Domain Admins;Enterprise Admins"
-Write-Output ""
-Write-Output "Deny log on locally "
-Write-Output "Domain Admins;Enterprise Admins;SEC-BlockInteractiveLogon"
-Write-Output ""
-Write-Output "Deny log on through Terminal Services "
-Write-Output "Domain Admins;Enterprise Admins;SEC-BlockRDPLogon"
-Write-Output ""
- 
-
-Write-Output 'Review the GPOs and edit appropriately before continuing to link GPOs to the MemberServers OU.'
-#>
-pause
-
 #Link to Servers
-$TargetOU = "OU=MemberServers,$DomainDN"
+$TargetOU = "OU=MemberServers,OU=Tier1,$DomainDN"
 $GPONames = @("GPO-LAPS", "GPO-PowerShellConfig", "GPO-WinServerBaseline", "GPO-CredGuard", "GPO-Defender", "GPO-Bitlocker")
 foreach ($GPOName in $GPONames) {
     Write-Output $GPOName
@@ -91,20 +44,27 @@ foreach ($GPOName in $GPONames) {
 }
 
 
-Write-Output 'Review the GPOs and edit appropriately before continuing to link GPOs to the ClientComputers OU.'
-pause
-
 #Link to Clients
-$TargetOU = "OU=ClientComputers,$DomainDN"
+$TargetOU = "OU=ClientComputers,OU=Tier2,$DomainDN"
 $GPONames = @("GPO-LAPS", "GPO-PowerShellConfig", "GPO-ClientBaseline", "GPO-CredGuard", "GPO-Defender", "GPO-Bitlocker")
 foreach ($GPOName in $GPONames) {
     Write-Output $GPOName
     New-GPLink -Name $GPOName -Target $TargetOU | out-null
 }
 
-Write-Output 'Review the GPOs and edit appropriately before continuing to link GPOs to the DomainControllers OU.'
-pause
+$TargetOU = "OU=Standard Workstations,OU=Tier0,$DomainDN"
+$GPONames = @("GPO-LAPS", "GPO-PowerShellConfig", "GPO-ClientBaseline", "GPO-CredGuard", "GPO-Defender", "GPO-Bitlocker")
+foreach ($GPOName in $GPONames) {
+    Write-Output $GPOName
+    New-GPLink -Name $GPOName -Target $TargetOU | out-null
+}
 
+$TargetOU = "OU=Admin Workstations,OU=Tier0,$DomainDN"
+$GPONames = @("GPO-LAPS", "GPO-PowerShellConfig", "GPO-ClientBaseline", "GPO-CredGuard", "GPO-Defender", "GPO-Bitlocker")
+foreach ($GPOName in $GPONames) {
+    Write-Output $GPOName
+    New-GPLink -Name $GPOName -Target $TargetOU | out-null
+}
 
 #Link to DCs
 $TargetOU = "OU=Domain Controllers,$DomainDN"
@@ -114,7 +74,7 @@ foreach ($GPOName in $GPONames) {
     New-GPLink -Name $GPOName -Target $TargetOU | out-null
 }
 
-
+#TODO
 #Set default users and default computers to new OUs.
 #create policy for those new OUs to have warnings and blocks
-
+#Delegate access for groups to the OUs
