@@ -28,21 +28,27 @@ Here is the rough draft version I have for now.
 2.  Rename your VM to the Domain Controller name you would like, and patch it fully.
 3.  Copy all files to the server.  I created and used the folder c:\Scripts.  Please us this if you don't want to modify the files.
 
+
 4.  Run 1-DCBuild.ps1, enter the DSRM Password you desire to be set. The server will reboot.  (Note - You will get warnings if using DHCP, and about DNS resolution.  This is normal.  You will also need to change the admin password after first logon to the domain.)  
 5.  Run 2-RunStructureBuild.ps1
+NOTE - You may need to link the new GPOs higher than Default domain policy.
+
 
 You will now have an AD structure with Groups, OUs, and GPOs, designed to match MS Best practices, and Tier Design to help prevent PTH.
 
-6.  Optionally Run ADSitesBuild.ps1 - not required, but describes a Cloud Hybrid design for SMBs
-NOTE - link higher than Default domain policy
+
+
 
 To see a design that adds additional lateral movement segmentation, continue with the following
 
-7.  Install .net 3.5 (prereq for GPAE)  
+6.  Install .net 3.5 (prereq for GPAE)  
 Install-WindowsFeature Net-Framework-Core
 
-8.  Install GPAE from above
-9.  Run ADTeamStructureBuild - Creates a segmented OU, GPO, Groups, Admin Accounts.  GPO enforces local admins, delegation lets teams add Servers to only this OU (great for DevOps/CICD processes) without granting more permissions that absolutely required.  Each of the Admin accounts are designed to be managed by a PAM systems with single use passwords.
+7.  Install GPAE from above
+8.  Run ADTeamStructureBuild - Creates a segmented OU, GPO, Groups, Admin Accounts.  GPO enforces local admins, delegation lets teams add Servers to only this OU (great for DevOps/CICD processes) without granting more permissions that absolutely required.  Each of the Admin accounts are designed to be managed by a PAM systems with single use passwords.
+
+
+
 
 TODO:
 - Create automated AWS or Azure VM build doc
