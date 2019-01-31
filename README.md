@@ -12,12 +12,13 @@ I will be building out additional error handling and Pester tests for all if tim
 
 
 Prerequisites to enable all functions:
-Server 2016 VM.  I used the datacenter on a Windows 10 system using Hyper-V.  Cloud based or other virtualization technologies would work fine as well.
+1.  Server 2016 VM. 
+I used the datacenter on a Windows 10 system using Hyper-V.  Cloud based or other virtualization technologies would work fine as well.
 
-You need the LAPS MSI installed on the system from which you run the ADEnableFeature.ps1
+2. You need the LAPS MSI installed on the system from which you run the ADEnableFeature.ps1
 Get it from: https://www.microsoft.com/en-us/download/details.aspx?id=46899
 
-For automated GPO editing, get GPAE from SDM Software.  It is well worth the modest cost compared to time saved. 
+3. For automated GPO editing, get GPAE from SDM Software.  It is well worth the modest cost compared to time saved. 
 It must be installed before you run the Team Structure creation scripts. 
 Trial available here:  https://sdmsoftware.com/group-policy-management-products/group-policy-automation-engine/
 
@@ -26,14 +27,14 @@ Here is the rough draft version I have for now.
 
 1.  Create a Windows Server 2016 VM (Preferably using your favorite automation solution).  
 2.  Install all available Patches!
-3.  Copy all files to the server.  I created and used the folder c:\Scripts.  Please us this if you don't want to modify the files.
-
+3.  Copy all files to the server.  I created and used the folder c:\Scripts.  Please us this if you don't want to modify the paths in the scripts.
 
 4.  CD to c:\Scripts and Run 1-DCBuild.ps1, enter the DSRM Password you desire to be set. The server will reboot.  
 Note - You will get warnings if using DHCP, and about DNS resolution.  This is normal.  You will also need to change the admin password after first logon to the domain.
 
 5.  Run 2-RunStructureBuild.ps1
-NOTE - You will need to change the link order of the new GPOs higher than Default domain policy.
+NOTES - You will need to change the link order of the new GPOs higher than Default domain policy.
+      - You will need to launch the PowerShell prompt, or ISE using 'Run as Administrator'
 
 
 You will now have an AD structure with Groups, OUs, and GPOs, designed to match MS Best practices, and Tier Design to help prevent PTH.
