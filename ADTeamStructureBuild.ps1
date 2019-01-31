@@ -40,8 +40,8 @@ New-ADOrganizationalUnit -Path $RootOU -Name "T$teamNumber" -Description "TEAM $
 $SECROLEOU = "OU=SecurityTeams,OU=SecurityGroups,OU=Tier0,$DomainDN"
 $SECACCOU = "OU=AccessGroups,OU=Groups,$DomainDN"
 $DISTOU = "OU=DistributionLists,OU=Groups,$DomainDN"
-$PAMOU = "OU=PAMRoles,OU=SecurityGroups,Tier0,$DomainDN"
-$USEROU = "OU=PAMAccounts,OU=SecurityGroups,Tier0,$DomainDN"
+$PAMOU = "OU=PAMRoles,OU=SecurityGroups,OU=Tier0,$DomainDN"
+$USEROU = "OU=PAMAccounts,OU=SecurityGroups,OU=Tier0,$DomainDN"
 
 #______________________________________________
 #Create Group names 
