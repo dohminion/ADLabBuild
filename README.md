@@ -47,7 +47,8 @@ To see a design that adds additional lateral movement segmentation, continue wit
 Install-WindowsFeature Net-Framework-Core
 
 7.  Install GPAE from above
-8.  Run ADTeamStructureBuild - Creates a segmented OU, GPO, Groups, Admin Accounts.  GPO enforces local admins, delegation lets teams add Servers to only this OU (great for DevOps/CICD processes) without granting more permissions that absolutely required.  Each of the Admin accounts are designed to be managed by a PAM systems with single use passwords.
+8.  Run ADTeamStructureBuild - Creates segmented OUs, GPOs, Groups, and Admin Accounts.  
+GPO enforces local admins.  Delegation is configured to let teams add Servers to only this OU (great for DevOps/CICD processes) without granting more permissions than absolutely required.  Each of the Admin accounts are designed to be managed by a PAM system with single use passwords.
 
 
 
