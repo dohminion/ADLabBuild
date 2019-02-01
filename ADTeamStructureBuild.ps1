@@ -78,7 +78,7 @@ For ($i = 1; $i -lt $UserCount; $i++) {
 
 
     #Gen the password
-    $PW = [System.Web.Security.Membership]::GeneratePassword(15, 3)
+    $PW = [System.Web.Security.Membership]::GeneratePassword(25, 3)
     $SecPassword = (ConvertTo-SecureString -AsPlaintext $PW -Force)
     New-ADUser -Name $Acct1 -Path $UserOU -samAccountName $Acct1 -DisplayName $Acct1 -userPrincipalName $UPN1 -Description "ADMIN account for TEAM $teamNumber" -AccountPassword $SecPassword -Enabled $true
     #Need to pause here to prevent errors
