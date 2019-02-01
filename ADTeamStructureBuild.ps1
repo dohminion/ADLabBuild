@@ -1,4 +1,5 @@
 #Requires -Version 4.0
+#Requires -RunAsAdministrator
 param (
     $UserCount = 'empty',
     $teamNumber = $null
